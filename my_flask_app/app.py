@@ -20,6 +20,15 @@ db = mysql.connector.connect(
     database="WallJobs" # Nome do banco de dados que está sendo usado
 )
 
+cursor = db.cursor()
+
+#Executar comando SQL
+cursor.execute("SHOW TABLES")
+
+#Exibir as tabelas
+for table in cursor:
+    print(table)
+
 @app.before_first_request
 def create_tables():
     # Cria todas as tabelas definidas nos modelos antes do primeiro pedido ser tratado
@@ -93,3 +102,6 @@ if __name__ == '__main__':
     # O modo de depuração permite que o servidor reinicie automaticamente quando o código é modificado,
     # e também fornece um console interativo de depuração.
     app.run(debug=True)
+
+# Fechar a conexão
+db.close()
